@@ -4,15 +4,20 @@ Here you can find my own *Unity Utils*, pieces of reusable code I've been making
 
 All the scripts are under the namespace **Delu** to avoid any conflicts.
 
+<br>
 
-
-### Timer
+### ~ Timer ~
 
 An easy-to-use Timer. You can use it on Update & Fixed Update. Find it [here](https://github.com/Delunado/Unity-Utils/blob/main/Timer.cs).
 
+<br>
 
+### ~ Data Objects ~
+Some Scriptable Objects that allow us to create Int, Float, Bool, etc. objects and use them as we want. Useful for sharing data between entities easily, for example. Find it [here](https://github.com/Delunado/Unity-Utils/tree/main/DataObjects)
 
-### General Utils
+<br>
+
+### ~ General Utils ~
 
 Some general utilities:
 
