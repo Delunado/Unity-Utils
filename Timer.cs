@@ -1,7 +1,9 @@
 ﻿/**
  * An easy to use Timer. Usable with Update & Fixed Update
  * Author: Javier (Delunado).
- * Last Update: 7/1/2021.
+ * 
+ * Last Update: 11/6/2021.
+ * - Fixed a little typo
 */
 
 using UnityEngine;
@@ -25,7 +27,7 @@ namespace Delu
         public bool Finished { get; private set; }
 
         /// <summary>
-        /// Creates a Timer which the indicated time and type.
+        /// Creates a Timer with the indicated time and type.
         /// </summary>
         /// <param name="timeToWait">The time to wait for the timer</param>
         public Timer(float timeToWait, TimerType timerType = TimerType.TIMER_UPDATE)
