@@ -6,7 +6,7 @@ All the scripts are under the namespace **Delu** to avoid any conflicts.
 
 ### ~ Steerings Behaviour Manager ~
 
-A Steerings Behaviour component to apply steering behaviours to a moving Game Object. You have to add it to the Game Object and reference it from another script, in order to easily use with your movement controller. Find it [here](https://github.com/Delunado/Unity-Utils/blob/main/SteeringsBehaviourManager.cs).
+A Steerings Behaviour component to apply steering behaviours to a moving Game Object. You have to add it to the Game Object and reference it from another script, in order to easily use with your movement controller. Find it [here](https://github.com/Delunado/Unity-Utils/blob/main/SteeringBehaviourManager.cs).
 
 <br>
 
