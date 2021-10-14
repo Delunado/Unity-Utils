@@ -1,11 +1,10 @@
 ﻿/**
- * An easy to use Timer. Usable with Update & Fixed Update
+ * An easy to use Timer. Usable with Update & Fixed Update.
  * Author: Javier (Delunado).
- * 
- * Last Update: 11/6/2021.
- * - Fixed a little typo
+ * Last Update: 14/10/2021.
 */
 
+using System;
 using UnityEngine;
 
 namespace Delu
@@ -21,13 +20,21 @@ namespace Delu
         private readonly TimerType timerType;
 
         private float timeToWait;
+        public float TimeToWait => timeToWait;
+
         private float timer;
 
         public bool Started { get; private set; }
         public bool Finished { get; private set; }
+        public bool AutoRestart { get; private set; }
+        public bool UnscaledTime { get; private set; }
+
+        public delegate void TimerDelegate();
+
+        private event TimerDelegate OnFinish;
 
         /// <summary>
-        /// Creates a Timer with the indicated time and type.
+        /// Creates a Timer which the indicated time and type.
         /// </summary>
         /// <param name="timeToWait">The time to wait for the timer</param>
         public Timer(float timeToWait, TimerType timerType = TimerType.TIMER_UPDATE)
@@ -37,81 +44,119 @@ namespace Delu
             timer = 0f;
             Started = false;
             Finished = false;
+            AutoRestart = false;
+            UnscaledTime = false;
+        }
+
+        public Timer(TimerType timerType = TimerType.TIMER_UPDATE)
+        {
+            this.timerType = timerType;
+            this.timeToWait = 0.0f;
+            timer = 0f;
+            Started = false;
+            Finished = false;
+            AutoRestart = false;
+            UnscaledTime = false;
         }
 
         public void Update()
         {
-            if (Started)
+            if (!Started) return;
+
+            if (Finished && AutoRestart)
             {
-                if (timer < timeToWait)
-                {
-                    if (timerType == TimerType.TIMER_UPDATE)
-                        timer += Time.deltaTime;
-                    else
-                        timer += Time.fixedDeltaTime;
-                }
+                Restart();
+            }
+
+            if (timer < timeToWait)
+            {
+                if (timerType == TimerType.TIMER_UPDATE)
+                    timer += UnscaledTime ? Time.unscaledTime : Time.deltaTime;
                 else
+                    timer += UnscaledTime ? Time.fixedUnscaledDeltaTime : Time.fixedDeltaTime;
+            }
+            else
+            {
+                if (!Finished)
                 {
-                    Finished = true;
+                    OnFinish?.Invoke();
                 }
+
+                Finished = true;
             }
         }
 
         /// <summary>
-        /// Start the timer
+        /// Start the timer. Sets Started to true.
         /// </summary>
-        public void Start()
+        public Timer Start()
         {
             Started = true;
+
+            return this;
+        }
+
+        public Timer AddOnFinishCallback(TimerDelegate function)
+        {
+            OnFinish += function;
+            return this;
         }
 
         /// <summary>
-        /// Stop the timer
+        /// Stop the timer. Sets Started to false.
         /// </summary>
-        public void Stop()
+        public Timer Stop()
         {
             Started = false;
+
+            return this;
         }
 
         /// <summary>
-        /// Reset the timer. You can use it again with Start.
+        /// Reset the timer. Sets Finished to false. You can use it again with Start.
         /// </summary>
-        public void Reset()
+        public Timer Reset()
         {
             timer = 0f;
             Finished = false;
+
+            return this;
         }
 
         /// <summary>
         /// Reset the timer, setting a new Time to Wait. You can use it again with Start.
         /// </summary>
         /// <param name="newTimeToWait"></param>
-        public void Reset(float newTimeToWait)
+        public Timer Reset(float newTimeToWait)
         {
             timeToWait = newTimeToWait;
-            Reset();
+            return Reset();
         }
 
         /// <summary>
         /// Restart the timer. Start again from the beginning. Same as using Reset + Start.
         /// </summary>
-        public void Restart()
+        public Timer Restart()
         {
             timer = 0f;
             Finished = false;
             Started = true;
+
+            return this;
         }
 
         /// <summary>
         /// Restart the timer, setting a new Time to Wait. Start again from the beginning. Same as using Reset + Start.
         /// </summary>
         /// <param name="newTimeToWait"></param>
-        public void Restart(float newTimeToWait)
+        public Timer Restart(float newTimeToWait)
         {
             timeToWait = newTimeToWait;
             timer = 0f;
             Finished = false;
             Started = true;
+
+            return this;
         }
 
         public float RemainingTimeValue()
@@ -124,5 +169,18 @@ namespace Delu
             return timeToWait - (RemainingTimeValue());
         }
 
+        public Timer SetAutoRestart(bool value)
+        {
+            AutoRestart = value;
+
+            return this;
+        }
+
+        public Timer SetUnscaledTime(bool value)
+        {
+            UnscaledTime = value;
+
+            return this;
+        }
     }
 }
