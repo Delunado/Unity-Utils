@@ -31,5 +31,23 @@ namespace Delu
             }
         }
 
+        /// <summary>
+        /// Converts seconds (X) to minutes and seconds (XX:XX).
+        /// </summary>
+        /// <param name="totalSeconds">The number of seconds you want to convert into minutes and seconds</param>
+        /// <returns>The minutes and seconds as string. Format: (XX:XX)</returns>
+        public static string SecondsToMinutesString(float totalSeconds)
+        {
+            TimeSpan timeSpan = TimeSpan.FromSeconds(totalSeconds);
+
+            int minutes = timeSpan.Minutes;
+            int seconds = timeSpan.Seconds;
+
+            string minutesString = (minutes < 10) ? ("0" + minutes) : minutes.ToString();
+            string secondsString = (seconds < 10) ? ("0" + seconds) : seconds.ToString();
+
+            return (minutesString + ":" + secondsString);
+        }
     }
+}
 }
