@@ -12,7 +12,7 @@ A Steerings Behaviour component to apply steering behaviours to a moving Game Ob
 
 ### ~ Persistent Singleton ~
 
-This component allows to apply the Persistent Singleton pattern to a Monobehaviour. Just make the component you want to be persistent singleton inherit from the PersistentSingleton class. Find it [here](https://github.com/Delunado/Unity-Utils/blob/main/PersistentSingleton.cs) 
+This component allows to apply the Persistent Singleton pattern to a Monobehaviour. Just make the component you want to be persistent singleton inherit from the PersistentSingleton class. Find it [here](https://github.com/Delunado/Unity-Utils/blob/main/PersistentSingleton.cs).
 
 <br>
 
