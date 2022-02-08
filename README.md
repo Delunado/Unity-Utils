@@ -10,6 +10,12 @@ A Steerings Behaviour component to apply steering behaviours to a moving Game Ob
 
 <br>
 
+### ~ Persistent Singleton ~
+
+This component allows to apply the Persistent Singleton pattern to a Monobehaviour. Just make the component you want to be persistent singleton inherit from the PersistentSingleton class. Find it [here]() 
+
+<br>
+
 ### ~ Timer ~
 
 An easy-to-use Timer. You can use it on Update & Fixed Update. Find it [here](https://github.com/Delunado/Unity-Utils/blob/main/Timer.cs).
